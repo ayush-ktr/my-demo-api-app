@@ -21,19 +21,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './chart';
-import Deposits from './deposits';
-import Orders from './orders';
 import 'react-chatbox-component/dist/style.css';
-import { ChatBox } from 'react-chatbox-component';
-
-
+import { Card, CardHeader, CardContent } from '@material-ui/core';
+import Dash from './Dash'
 const drawerWidth = 240;
 
 const styles = theme => ({
     root: {
         display: 'flex',
-        overflowX: 'hidden'
+        overflowX: 'hidden',
+        flexGrow: 1
 
     },
     toolbar: {
@@ -94,10 +91,12 @@ const styles = theme => ({
         position: 'relative',
         whiteSpace: 'nowrap',
         width: drawerWidth,
+        overflow: 'hidden',
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
+        height: '100vh'
     },
     drawerPaperClose: {
         overflowX: 'hidden',
@@ -118,7 +117,6 @@ const styles = theme => ({
     },
     contentChatBox: {
         flexGrow: 1,
-        padding: theme.spacing(3),
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -134,7 +132,8 @@ const styles = theme => ({
     },
     container: {
         paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4)
+        paddingBottom: theme.spacing(4),
+        minWidth: "75.5vw"
     },
     paper: {
         padding: theme.spacing(2),
@@ -145,6 +144,9 @@ const styles = theme => ({
     fixedHeight: {
         height: 240,
     },
+    cardStyle: {
+        height: '35vh'
+    }
 });
 
 class Dashboard extends Component {
@@ -185,18 +187,6 @@ class Dashboard extends Component {
         let { classes } = this.props
         const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
         let { open, openChatBox } = this.state;
-        const messages = [
-            {
-                "text": "Hello there",
-                "id": "1",
-                "sender": {
-                    "name": "Ironman",
-                    "uid": "user1",
-                    "avatar": "https://data.cometchat.com/assets/images/avatars/ironman.png",
-                },
-            },
-        ]
-
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -213,6 +203,12 @@ class Dashboard extends Component {
                         </IconButton>
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Dashboard
+                        </Typography>
+                        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                            Ayush Kumar
+                        </Typography>
+                        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                            Information Technology
                         </Typography>
                         <IconButton
                             color="inherit"
@@ -239,34 +235,48 @@ class Dashboard extends Component {
                     </div>
                     <Divider />
                     <List>{mainListItems}</List>
-                    <Divider />
-                    <List>{secondaryListItems}</List>
                 </Drawer>
                 <main className={clsx(!openChatBox && classes.contentChatBox, openChatBox && classes.contentShift)}>
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
-                        <Grid container spacing={3}>
-                            {/* Chart */}
-                            <Grid item xs={12} md={8} lg={9}>
-                                <Paper className={fixedHeightPaper}>
-                                    <Chart />
-                                </Paper>
-                            </Grid>
-                            {/* Recent Deposits */}
-                            <Grid item xs={12} md={4} lg={3}>
-                                <Paper className={fixedHeightPaper}>
-                                    <Deposits />
-                                </Paper>
-                            </Grid>
-                            {/* Recent Orders */}
-                            <Grid item xs={12}>
-                                <Paper className={classes.paper}>
-                                    <Orders />
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                    </Container>
+                        {/* <Grid container spacing={3}>
+                            <Grid item container
+                                xs={12}
 
+                                direction="row"
+                                justify="center"
+                                alignItems="center">
+
+                                <Grid item xs={12} lg={12} md={12}>
+                                    <Card className={classes.cardStyle} >
+                                        <CardHeader title='Task Of the Day' />
+                                        <CardContent>
+                                            hello
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
+                            <Grid item container xs={12} spacing={3}>
+                                <Grid item xs={6}>
+                                    <Card className={classes.cardStyle}>
+                                        <CardHeader title='Classes Today' />
+                                        <CardContent>
+                                            hello
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Card className={classes.cardStyle}>
+                                        <CardHeader title='Attendance' />
+                                        <CardContent>
+                                            hello
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
+                        </Grid> */}
+                        <Dash />
+                    </Container>
                 </main>
                 <Drawer
                     className={classes.drawer}
@@ -300,13 +310,8 @@ class Dashboard extends Component {
                             </ListItem>
                         ))}
                     </List>
-                    {/* <div style={{ overflowY: 'auto' }}>
-                        <ChatBox
-                            messages={messages}
-                        />
-                    </div> */}
                 </Drawer>
-            </div>
+            </div >
         )
     }
 }
