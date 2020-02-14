@@ -23,7 +23,7 @@ class Dash extends Component {
 
                         <Grid item xs={12} lg={12} md={12}>
                             <Card className={classes.cardStyle} >
-                                <CardHeader title='Task Of the Day' />
+                                <CardHeader action='Task Of the Day' />
                                 <CardContent>
                                     hello
                                         </CardContent>

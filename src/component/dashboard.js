@@ -15,23 +15,20 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems} from './listItems';
 import 'react-chatbox-component/dist/style.css';
 import { Card, CardHeader, CardContent } from '@material-ui/core';
 import Dash from './Dash'
+import ChatWindow from './ChatWindow'
+import Bot from './bot.svg'
 const drawerWidth = 240;
 
 const styles = theme => ({
     root: {
         display: 'flex',
         overflowX: 'hidden',
-        flexGrow: 1
-
+        flexGrow: 1,
+        textDecoration: 'none'
     },
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
@@ -69,9 +66,15 @@ const styles = theme => ({
     },
     menuButton: {
         marginRight: 36,
+        outlineWidth: "0px !important",
+        "&:focus": {
+            outlineWidth: "0px",
+            textDecoration: 'none'
+        }
     },
     menuButtonHidden: {
         display: 'none',
+
     },
     drawerHeader: {
         display: 'flex',
@@ -89,6 +92,7 @@ const styles = theme => ({
     },
     drawerPaper: {
         position: 'relative',
+        width: "200px",
         whiteSpace: 'nowrap',
         width: drawerWidth,
         overflow: 'hidden',
@@ -146,6 +150,9 @@ const styles = theme => ({
     },
     cardStyle: {
         height: '35vh'
+    },
+    icon: {
+        height: '5.5vh'
     }
 });
 
@@ -197,6 +204,7 @@ class Dashboard extends Component {
                             color="inherit"
                             aria-label="open drawer"
                             onClick={this.handleDrawerOpen}
+                            style={{ textDecoration: "none" }}
                             className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
                         >
                             <MenuIcon />
@@ -217,7 +225,8 @@ class Dashboard extends Component {
                             onClick={this.handleChatBoxDrawerOpen}
                             className={clsx(openChatBox && classes.menuButtonHidden)}
                         >
-                            <MenuIcon />
+                            {/* <MenuIcon /> */}
+                            <span ><img src={Bot} className={classes.icon} /></span>
                         </IconButton>
                     </Toolbar>
                 </AppBar>
@@ -293,23 +302,7 @@ class Dashboard extends Component {
                         </IconButton>
                     </div>
                     <Divider />
-                    <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
-                    </List>
-                    <Divider />
-                    <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))}
-                    </List>
+                    <ChatWindow />
                 </Drawer>
             </div >
         )
