@@ -54,16 +54,14 @@ body {
 }
 .is-typing {
     /* margin-top: 90px; */
-    width: 80px;
+    width: 50px;
     justify-content: space-around;
     display: flex;
  }
 
  .jump1,
  .jump2,
- .jump3,
- .jump4,
- .jump5 {
+ .jump3{
     width: 10px;
     height: 10px;
     border-radius: 100%;
